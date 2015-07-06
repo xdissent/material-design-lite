@@ -1,8 +1,7 @@
 {
   "name": "material-design-lite",
-  "version": "1.0.0",
+  "version": "1.0.0-1",
   "description": "Material Design Components in CSS, JS and HTML",
-  "private": true,
   "license": {
     "type": "Apache-2",
     "url": "https://github.com/google/material-design-lite/blob/master/LICENSE"
