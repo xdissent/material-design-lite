@@ -96,12 +96,12 @@ gulp.task('images', function () {
 // Compile and Automatically Prefix Stylesheets (dev)
 gulp.task('styles:dev', function () {
   return gulp.src([
-    'src/**/*.scss'
+    'src/material-design-lite.styl',
+    'src/material-design-lite-grid.styl',
+    'src/styleguide.styl',
+    'src/template.styl'
   ])
-    .pipe($.sass({
-      precision: 10,
-      onError: console.error.bind(console, 'Sass error:')
-    }))
+    .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
     }))
@@ -114,14 +114,11 @@ gulp.task('styles:dev', function () {
 gulp.task('styletemplates', function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-    'src/template.scss'
+    'src/template.styl'
   ])
     // Generate Source Maps
     .pipe ($.sourcemaps.init())
-    .pipe($.sass({
-      precision: 10,
-      onError: console.error.bind(console, 'Sass error:')
-    }))
+    .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
     }))
@@ -143,14 +140,11 @@ gulp.task('styletemplates', function () {
 gulp.task('styles', ['styletemplates'], function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-    'src/styleguide.scss'
+    'src/styleguide.styl'
   ])
     // Generate Source Maps
     .pipe ($.sourcemaps.init())
-    .pipe($.sass({
-      precision: 10,
-      onError: console.error.bind(console, 'Sass error:')
-    }))
+    .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
     }))
@@ -171,11 +165,8 @@ gulp.task('styles', ['styletemplates'], function () {
 
 // Only generate CSS styles for the MDL grid
 gulp.task('styles-grid', function () {
-  return gulp.src(['src/material-design-lite-grid.scss'])
-    .pipe($.sass({
-      precision: 10,
-      onError: console.error.bind(console, 'Sass error:')
-    }))
+  return gulp.src(['src/material-design-lite-grid.styl'])
+    .pipe($.stylus())
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp'))
     // Concatenate Styles
@@ -337,10 +328,7 @@ gulp.task('demoresources', function () {
       './src/**/demo.css',
       './src/**/demo.js'
     ], {base: './src'})
-      .pipe($.if('*.scss', $.sass({
-        precision: 10,
-        onError: console.error.bind(console, 'Sass error:')
-      })))
+      .pipe($.if('*.styl', $.stylus()))
       .pipe($.cssInlineImages({
         webRoot: 'src'
       }))
@@ -455,7 +443,7 @@ gulp.task('serve:browsersync', ['default'], function () {
 
   gulp.watch(['src/**/*.js', '!src/**/README.md'],
       ['scripts', 'demos', 'components', reload]);
-  gulp.watch(['src/**/*.{scss,css}'], ['styles', 'demos', reload]);
+  gulp.watch(['src/**/*.{styl,css}'], ['styles', 'demos', reload]);
   gulp.watch(['src/**/*.html'], ['demos', reload]);
   gulp.watch(['src/**/README.md'], ['components', reload]);
   gulp.watch(['templates/**/*'], ['templates', reload]);
@@ -471,7 +459,7 @@ gulp.task('serve', ['default'], function() {
 
   gulp.watch(['src/**/*.js', '!src/**/README.md'],
       ['scripts', 'demos', 'components']);
-  gulp.watch(['src/**/*.{scss,css}'], ['styles', 'demos']);
+  gulp.watch(['src/**/*.{styl,css}'], ['styles', 'demos']);
   gulp.watch(['src/**/*.html'], ['demos']);
   gulp.watch(['src/**/README.md'], ['components']);
   gulp.watch(['templates/**/*'], ['templates']);
@@ -635,12 +623,9 @@ gulp.task('publish:staging', function() {
 
 gulp.task('templates:mdl', function() {
   return gulp.src([
-    'templates/**/*.scss'
+    'templates/**/*.styl'
   ])
-    .pipe($.sass({
-      precision: 10,
-      onError: console.error.bind(console, 'Sass error:')
-    }))
+    .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
     }))
