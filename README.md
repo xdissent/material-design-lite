@@ -1,5 +1,7 @@
 # Material Design Lite
 
+**NOTE:** This is an experimental [Stylus](https://learnboost.github.io/stylus/) port of [MDL](https://github.com/google/material-design-lite).
+
 > An implementation of [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 components in vanilla CSS, JS, and HTML
 
