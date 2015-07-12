@@ -41,7 +41,7 @@ unquotes() {
 
 # Remove defaults
 defaults() {
-  sed 's/ *!default//'
+  sed 's/\(=.*\) \{1,\}!default/?\1/'
 }
 
 # Collapse multiline list expressions

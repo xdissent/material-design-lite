@@ -338,8 +338,8 @@ $color-white = "255,255,255";
 
 
 /* colors.scss */
-$styleguide-generate-template = false;
+$styleguide-generate-template ?= false;
 
 // The two possible colors for overlayed text.
-$color-dark-contrast = $color-white;
-$color-light-contrast = $color-black;
+$color-dark-contrast ?= $color-white;
+$color-light-contrast ?= $color-black;

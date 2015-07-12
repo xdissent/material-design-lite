@@ -55,8 +55,8 @@
    We should be able to improve on this once CSS Font Loading L3 becomes more
    widely available.
 */
-$preferred_font = 'Roboto', 'Helvetica', 'Arial', sans-serif;
-$performance_font = 'Helvetica', 'Arial', sans-serif;
+$preferred_font ?= 'Roboto', 'Helvetica', 'Arial', sans-serif;
+$performance_font ?= 'Helvetica', 'Arial', sans-serif;
 
 /* ==========  COLORS  ========== */
 
@@ -73,14 +73,14 @@ $performance_font = 'Helvetica', 'Arial', sans-serif;
 
 // Use color primarily for emphasis. Choose colors that fit with
 // your brand and provide good contrast between visual components.
-$color-primary = $palette-indigo-500;
-$color-primary-dark = $palette-indigo-700;
-$color-accent = $palette-pink-A200;
+$color-primary ?= $palette-indigo-500;
+$color-primary-dark ?= $palette-indigo-700;
+$color-accent ?= $palette-pink-A200;
 
 // Our primary is dark, so use $color-dark-contrast for overlaid text.
-$color-primary-contrast = $color-dark-contrast;
+$color-primary-contrast ?= $color-dark-contrast;
 // Our accent is dark, so use $color-dark-contrast for overlaid text.
-$color-accent-contrast = $color-dark-contrast;
+$color-accent-contrast ?= $color-dark-contrast;
 
 // Replace all colors with placeholders if we're generating a template.
 if $styleguide-generate-template == true {
@@ -97,181 +97,181 @@ if $styleguide-generate-template == true {
 // text-color-secondary. For light themes, use text-color-primary-inverse
 // and text-color-secondary-inverse.
 
-$text-color-primary = convert("rgba(" + $color-black + ", 0.87)");
-$text-link-color = convert("rgb(" + $color-accent + ")");
+$text-color-primary ?= convert("rgba(" + $color-black + ", 0.87)");
+$text-link-color ?= convert("rgb(" + $color-accent + ")");
 
 /* ==========  Components  ========== */
 
 /* ==========  Standard Buttons  ========== */
 
 // Default button colors.
-$button-primary-color = convert("rgba(" + $palette-grey-500 + ", 0.20)");
-$button-secondary-color = convert("rgb(" + $color-black + ")");
-$button-hover-color = $button-primary-color;
-$button-active-color = convert("rgba(" + $palette-grey-500 + ", 0.40)");
-$button-focus-color = convert("rgba(" + $color-black + ", 0.12)");
+$button-primary-color ?= convert("rgba(" + $palette-grey-500 + ", 0.20)");
+$button-secondary-color ?= convert("rgb(" + $color-black + ")");
+$button-hover-color ?= $button-primary-color;
+$button-active-color ?= convert("rgba(" + $palette-grey-500 + ", 0.40)");
+$button-focus-color ?= convert("rgba(" + $color-black + ", 0.12)");
 
 // Colored button colors.
-$button-primary-color-alt = convert("rgb(" + $color-primary + ")");
-$button-secondary-color-alt = convert("rgb(" + $color-primary-contrast + ")");
-$button-hover-color-alt = convert("rgb(" + $color-primary + ")");
-$button-active-color-alt = convert("rgb(" + $color-primary + ")");
-$button-focus-color-alt = $button-focus-color;
+$button-primary-color-alt ?= convert("rgb(" + $color-primary + ")");
+$button-secondary-color-alt ?= convert("rgb(" + $color-primary-contrast + ")");
+$button-hover-color-alt ?= convert("rgb(" + $color-primary + ")");
+$button-active-color-alt ?= convert("rgb(" + $color-primary + ")");
+$button-focus-color-alt ?= $button-focus-color;
 
 // Ripple color for colored raised buttons.
-$button-ripple-color-alt = convert("rgb(" + $color-primary-contrast + ")");
+$button-ripple-color-alt ?= convert("rgb(" + $color-primary-contrast + ")");
 
 // Disabled button colors.
-$button-primary-color-disabled = convert("rgba(" + $color-black + ", 0.12)");
-$button-secondary-color-disabled = convert("rgba(" + $color-black + ", 0.26)");
+$button-primary-color-disabled ?= convert("rgba(" + $color-black + ", 0.12)");
+$button-secondary-color-disabled ?= convert("rgba(" + $color-black + ", 0.26)");
 
 // FAB colors and sizes.
-$button-fab-color-alt = convert("rgb(" + $color-accent + ")");
-$button-fab-hover-color-alt = convert("rgb(" + $color-accent + ")");
-$button-fab-active-color-alt = convert("rgb(" + $color-accent + ")");
-$button-fab-text-color-alt = convert("rgb(" + $color-accent-contrast + ")");
-$button-fab-ripple-color-alt = convert("rgb(" + $color-accent-contrast + ")");
+$button-fab-color-alt ?= convert("rgb(" + $color-accent + ")");
+$button-fab-hover-color-alt ?= convert("rgb(" + $color-accent + ")");
+$button-fab-active-color-alt ?= convert("rgb(" + $color-accent + ")");
+$button-fab-text-color-alt ?= convert("rgb(" + $color-accent-contrast + ")");
+$button-fab-ripple-color-alt ?= convert("rgb(" + $color-accent-contrast + ")");
 
 // Icon button colors and sizes.
-$button-icon-color = convert("rgb(" + $palette-grey-700 + ")");
-$button-icon-focus-color = $button-focus-color;
+$button-icon-color ?= convert("rgb(" + $palette-grey-700 + ")");
+$button-icon-focus-color ?= $button-focus-color;
 
 /* ==========  Icon Toggles  ========== */
 
-$icon-toggle-color = convert("rgb(" + $palette-grey-700 + ")");
-$icon-toggle-focus-color = $button-focus-color;
-$icon-toggle-checked-color = convert("rgb(" + $color-primary + ")");
-$icon-toggle-checked-focus-color = convert("rgba(" + $color-primary + ", 0.26)");
-$icon-toggle-disabled-color = convert("rgba(" + $color-black + ", 0.26)");
+$icon-toggle-color ?= convert("rgb(" + $palette-grey-700 + ")");
+$icon-toggle-focus-color ?= $button-focus-color;
+$icon-toggle-checked-color ?= convert("rgb(" + $color-primary + ")");
+$icon-toggle-checked-focus-color ?= convert("rgba(" + $color-primary + ", 0.26)");
+$icon-toggle-disabled-color ?= convert("rgba(" + $color-black + ", 0.26)");
 
 /* ==========  Radio Buttons  ========== */
 
-$radio-color = convert("rgb(" + $color-primary + ")");
-$radio-off-color = convert("rgba(" + $color-black + ", 0.54)");
-$radio-disabled-color = convert("rgba(" + $color-black + ", 0.26)");
+$radio-color ?= convert("rgb(" + $color-primary + ")");
+$radio-off-color ?= convert("rgba(" + $color-black + ", 0.54)");
+$radio-disabled-color ?= convert("rgba(" + $color-black + ", 0.26)");
 
 /* ==========  Ripple effect  ========== */
 
-$ripple-bg-color = convert("rgb(" + $color-light-contrast + ")");
+$ripple-bg-color ?= convert("rgb(" + $color-light-contrast + ")");
 
 /* ==========  Layout  ========== */
 
-$layout-nav-color = convert("rgb(" + $palette-grey-300 + ")");
+$layout-nav-color ?= convert("rgb(" + $palette-grey-300 + ")");
 
 // Drawer
-$layout-drawer-bg-color = convert("rgb(" + $palette-grey-50 + ")");
-$layout-drawer-border-color = convert("rgb(" + $palette-grey-300 + ")");
-$layout-text-color = convert("rgb(" + $palette-grey-800 + ")");
-$layout-drawer-navigation-color = #757575;
-$layout-drawer-navigation-link-active-background = convert("rgb(" + $color-light-contrast + ")");
-$layout-drawer-naviagtion-link-active-color = convert("rgb(" + $color-primary + ")");
+$layout-drawer-bg-color ?= convert("rgb(" + $palette-grey-50 + ")");
+$layout-drawer-border-color ?= convert("rgb(" + $palette-grey-300 + ")");
+$layout-text-color ?= convert("rgb(" + $palette-grey-800 + ")");
+$layout-drawer-navigation-color ?= #757575;
+$layout-drawer-navigation-link-active-background ?= convert("rgb(" + $color-light-contrast + ")");
+$layout-drawer-naviagtion-link-active-color ?= convert("rgb(" + $color-primary + ")");
 
 // Header
-$layout-header-bg-color = convert("rgb(" + $color-primary + ")");
-$layout-header-text-color = convert("rgb(" + $color-primary-contrast + ")");
-$layout-header-nav-hover-color = convert("rgba(" + $palette-grey-700 + ", 0.6)");
-$layout-header-tab-text-color = convert("rgba(" + $color-primary-contrast + ", 0.6)");
+$layout-header-bg-color ?= convert("rgb(" + $color-primary + ")");
+$layout-header-text-color ?= convert("rgb(" + $color-primary-contrast + ")");
+$layout-header-nav-hover-color ?= convert("rgba(" + $palette-grey-700 + ", 0.6)");
+$layout-header-tab-text-color ?= convert("rgba(" + $color-primary-contrast + ", 0.6)");
 
 // Tabs
-$layout-header-tab-highlight = convert("rgb(" + $color-accent + ")");
+$layout-header-tab-highlight ?= convert("rgb(" + $color-accent + ")");
 
 /* ==========  Content Tabs  ========== */
 
-$tab-highlight-color = convert("rgb(" + $color-primary + ")");
-$tab-text-color = convert("rgba(" + $color-black + ", 0.54)");
-$tab-active-text-color = convert("rgba(" + $color-black + ", 0.87)");
-$tab-border-color = convert("rgb(" + $palette-grey-300 + ")");
+$tab-highlight-color ?= convert("rgb(" + $color-primary + ")");
+$tab-text-color ?= convert("rgba(" + $color-black + ", 0.54)");
+$tab-active-text-color ?= convert("rgba(" + $color-black + ", 0.87)");
+$tab-border-color ?= convert("rgb(" + $palette-grey-300 + ")");
 
 /* ==========  Checkboxes  ========== */
 
-$checkbox-color = convert("rgb(" + $color-primary + ")");
-$checkbox-off-color = convert("rgba(" + $color-black + ", 0.54)");
-$checkbox-disabled-color = convert("rgba(" + $color-black + ", 0.26)");
-$checkbox-focus-color = convert("rgba(" + $color-primary + ", 0.26)");
+$checkbox-color ?= convert("rgb(" + $color-primary + ")");
+$checkbox-off-color ?= convert("rgba(" + $color-black + ", 0.54)");
+$checkbox-disabled-color ?= convert("rgba(" + $color-black + ", 0.26)");
+$checkbox-focus-color ?= convert("rgba(" + $color-primary + ", 0.26)");
 
 /* ==========  Switches  ========== */
 
-$switch-color = convert("rgb(" + $color-primary + ")");
-$switch-faded-color = convert("rgba(" + $color-primary + ", 0.26)");
-$switch-thumb-color = $switch-color;
-$switch-track-color = convert("rgba(" + $color-primary + ", 0.5)");
+$switch-color ?= convert("rgb(" + $color-primary + ")");
+$switch-faded-color ?= convert("rgba(" + $color-primary + ", 0.26)");
+$switch-thumb-color ?= $switch-color;
+$switch-track-color ?= convert("rgba(" + $color-primary + ", 0.5)");
 
-$switch-off-thumb-color = convert("rgb(" + $palette-grey-50 + ")");
-$switch-off-track-color = convert("rgba(" + $color-black + ", 0.26)");
-$switch-disabled-thumb-color = convert("rgb(" + $palette-grey-400 + ")");
-$switch-disabled-track-color = convert("rgba(" + $color-black + ", 0.12)");
+$switch-off-thumb-color ?= convert("rgb(" + $palette-grey-50 + ")");
+$switch-off-track-color ?= convert("rgba(" + $color-black + ", 0.26)");
+$switch-disabled-thumb-color ?= convert("rgb(" + $palette-grey-400 + ")");
+$switch-disabled-track-color ?= convert("rgba(" + $color-black + ", 0.12)");
 
 /* ==========  Spinner  ========== */
 
-$spinner-color-1 = convert("rgb(" + $palette-blue-400 + ")");
-$spinner-color-2 = convert("rgb(" + $palette-red-500 + ")");
-$spinner-color-3 = convert("rgb(" + $palette-yellow-600 + ")");
-$spinner-color-4 = convert("rgb(" + $palette-green-500 + ")");
+$spinner-color-1 ?= convert("rgb(" + $palette-blue-400 + ")");
+$spinner-color-2 ?= convert("rgb(" + $palette-red-500 + ")");
+$spinner-color-3 ?= convert("rgb(" + $palette-yellow-600 + ")");
+$spinner-color-4 ?= convert("rgb(" + $palette-green-500 + ")");
 
-$spinner-single-color = convert("rgb(" + $color-primary + ")");
+$spinner-single-color ?= convert("rgb(" + $color-primary + ")");
 
 /* ==========  Text fields  ========== */
 
-$input-text-background-color = transparent;
-$input-text-label-color = convert("rgba(" + $color-black + ", 0.26)");
-$input-text-bottom-border-color = convert("rgba(" + $color-black + ", 0.12)");
-$input-text-highlight-color = convert("rgb(" + $color-primary + ")");
-$input-text-disabled-color = $input-text-bottom-border-color;
-$input-text-error-color = unquote("rgb(222, 50, 38)");
+$input-text-background-color ?= transparent;
+$input-text-label-color ?= convert("rgba(" + $color-black + ", 0.26)");
+$input-text-bottom-border-color ?= convert("rgba(" + $color-black + ", 0.12)");
+$input-text-highlight-color ?= convert("rgb(" + $color-primary + ")");
+$input-text-disabled-color ?= $input-text-bottom-border-color;
+$input-text-error-color ?= unquote("rgb(222, 50, 38)");
 
 /* ==========  Card  ========== */
 
-$card-background-color = convert("rgb(" + $color-white + ")");
-$card-text-color = convert("rgb(" + $color-black + ")");
-$card-image-placeholder-color = convert("rgb(" + $color-accent + ")");
-$card-supporting-text-text-color = $text-color-primary;
-$card-border-color = rgba(0,0,0,0.1);
+$card-background-color ?= convert("rgb(" + $color-white + ")");
+$card-text-color ?= convert("rgb(" + $color-black + ")");
+$card-image-placeholder-color ?= convert("rgb(" + $color-accent + ")");
+$card-supporting-text-text-color ?= $text-color-primary;
+$card-border-color ?= rgba(0,0,0,0.1);
 
 /* ==========  Sliders ========== */
 
-$range-bg-color = convert("rgba(" + $color-black + ", 0.26)");
-$range-color = convert("rgb(" + $color-primary + ")");
-$range-faded-color = convert("rgba(" + $color-primary + ", 0.26)");
-$range-bg-focus-color = convert("rgba(" + $color-black + ", 0.12)");
+$range-bg-color ?= convert("rgba(" + $color-black + ", 0.26)");
+$range-color ?= convert("rgb(" + $color-primary + ")");
+$range-faded-color ?= convert("rgba(" + $color-primary + ", 0.26)");
+$range-bg-focus-color ?= convert("rgba(" + $color-black + ", 0.12)");
 
 /* ========== Progress ========== */
-$progress-main-color = convert("rgb(" + $color-primary + ")");
-$progress-secondary-color = convert("rgba(" + $color-primary-contrast + ", 0.7)");
-$progress-fallback-buffer-color = convert("rgba(" + $color-primary-contrast + ", 0.9)");
+$progress-main-color ?= convert("rgb(" + $color-primary + ")");
+$progress-secondary-color ?= convert("rgba(" + $color-primary-contrast + ", 0.7)");
+$progress-fallback-buffer-color ?= convert("rgba(" + $color-primary-contrast + ", 0.9)");
 
 /* ==========  List ========== */
 
-$list-container-item-border-color = convert("rgb(" + $palette-grey-300 + ")");
-$list-container-view-background = convert("rgb(" + $color-white + ")");
+$list-container-item-border-color ?= convert("rgb(" + $palette-grey-300 + ")");
+$list-container-view-background ?= convert("rgb(" + $color-white + ")");
 
 /* ==========  Item ========== */
 
 // Default Item Colors
-$default-item-text-color = convert("rgba(" + $color-black + ", 0.87)");
-$default-item-outline-color = convert("rgb(" + $palette-grey-400 + ")");
-$default-item-hover-bg-color = convert("rgb(" + $palette-grey-200 + ")");
-$default-item-focus-bg-color = convert("rgb(" + $palette-grey-200 + ")");
-$default-item-active-bg-color = convert("rgb(" + $palette-grey-300 + ")");
+$default-item-text-color ?= convert("rgba(" + $color-black + ", 0.87)");
+$default-item-outline-color ?= convert("rgb(" + $palette-grey-400 + ")");
+$default-item-hover-bg-color ?= convert("rgb(" + $palette-grey-200 + ")");
+$default-item-focus-bg-color ?= convert("rgb(" + $palette-grey-200 + ")");
+$default-item-active-bg-color ?= convert("rgb(" + $palette-grey-300 + ")");
 
 // Disabled Button Colors
-$disabled-item-text-color = convert("rgb(" + $palette-grey-400 + ")");
+$disabled-item-text-color ?= convert("rgb(" + $palette-grey-400 + ")");
 
 /* ==========  Dropdown menu ========== */
 
-$default-dropdown-bg-color = convert("rgb(" + $color-white + ")");
+$default-dropdown-bg-color ?= convert("rgb(" + $color-white + ")");
 
 /* ==========  Tooltips  ========== */
 
-$tooltip-text-color = convert("rgb(" + $color-white + ")");
-$tooltip-background-color = convert("rgba(" + $palette-grey-700 + ", 0.9)");
+$tooltip-text-color ?= convert("rgb(" + $color-white + ")");
+$tooltip-background-color ?= convert("rgba(" + $palette-grey-700 + ", 0.9)");
 
 /* ==========  Footer  ========== */
 
-$footer-bg-color = convert("rgb(" + $palette-grey-800 + ")");
-$footer-color = convert("rgb(" + $palette-grey-500 + ")");
-$footer-heading-color = convert("rgb(" + $palette-grey-300 + ")");
-$footer-button-fill-color = $footer-color;
-$footer-underline-color = $footer-color;
+$footer-bg-color ?= convert("rgb(" + $palette-grey-800 + ")");
+$footer-color ?= convert("rgb(" + $palette-grey-500 + ")");
+$footer-heading-color ?= convert("rgb(" + $palette-grey-300 + ")");
+$footer-button-fill-color ?= $footer-color;
+$footer-underline-color ?= $footer-color;
 
 
 /* TEXTFIELD */
@@ -300,8 +300,8 @@ $switch-helper-size = 8px;
 
 /* SPINNER */
 
-$spinner-size = 28px;
-$spinner-stroke-width = 3px;
+$spinner-size ?= 28px;
+$spinner-stroke-width ?= 3px;
 
 // Amount of circle the arc takes up.
 $spinner-arc-size = 270deg;
@@ -367,9 +367,9 @@ $layout-tab-highlight-thickness = 2px;
 
 /* ICON TOGGLE */
 
-$icon-toggle-size = 32px;
-$icon-toggle-font-size = 24px;
-$icon-toggle-ripple-size = 36px;
+$icon-toggle-size ?= 32px;
+$icon-toggle-font-size ?= 24px;
+$icon-toggle-ripple-size ?= 36px;
 
 /* FOOTER */
 
@@ -379,11 +379,11 @@ $icon-toggle-ripple-size = 36px;
  * Sizes
  *
  *************/
-$footer-min-padding = 16px;
-$footer-padding-sides = 40px;
-$footer-heading-font-size = 14px;
-$footer-heading-line-height = (1.7 * $footer-heading-font-size);
-$footer-btn-size = 36px;
+$footer-min-padding ?= 16px;
+$footer-padding-sides ?= 40px;
+$footer-heading-font-size ?= 14px;
+$footer-heading-line-height ?= (1.7 * $footer-heading-font-size);
+$footer-btn-size ?= 36px ;
 
 /*mini-footer*/
 
@@ -392,10 +392,10 @@ $footer-btn-size = 36px;
  * Sizes
  *
  *************/
-$padding = 16px;
-$footer-heading-font-size = 24px;
-$footer-heading-line-height = (1.5 * $footer-heading-font-size);
-$footer-btn-size = 36px;
+$padding ?= 16px;
+$footer-heading-font-size ?= 24px;
+$footer-heading-line-height ?= (1.5 * $footer-heading-font-size);
+$footer-btn-size ?= 36px;
 
 /* COLUMN LAYOUT */
 
@@ -436,33 +436,33 @@ $checkbox-ripple-size = $checkbox-label-height * 1.5;
 /* CARD */
 
 /* Card dimensions */
-$card-width = 330px;
-$card-height = 200px;
-$card-font-size = 16px;
-$card-title-font-size = 24px;
-$card-horizontal-padding = 16px;
-$card-vertical-padding = 16px;
+$card-width ?= 330px;
+$card-height ?= 200px;
+$card-font-size ?= 16px;
+$card-title-font-size ?= 24px;
+$card-horizontal-padding ?= 16px;
+$card-vertical-padding ?= 16px;
 
-$card-title-perspective-origin-x = 165px;
-$card-title-perspective-origin-y = 56px;
+$card-title-perspective-origin-x ?= 165px;
+$card-title-perspective-origin-y ?= 56px;
 
-$card-title-transform-origin-x = 165px;
-$card-title-transform-origin-y = 56px;
+$card-title-transform-origin-x ?= 165px;
+$card-title-transform-origin-y ?= 56px;
 
-$card-title-text-transform-origin-x = 149px;
-$card-title-text-transform-origin-y = 48px;
+$card-title-text-transform-origin-x ?= 149px;
+$card-title-text-transform-origin-y ?= 48px;
 
-$card-supporting-text-font-size = 13px;
-$card-supporting-text-line-height = 18px;
+$card-supporting-text-font-size ?= 13px;
+$card-supporting-text-line-height ?= 18px;
 
-$card-actions-font-size = 16px;
+$card-actions-font-size ?= 16px;
 
-$card-title-text-font-weight = 300;
-$card-z-index = 1;
+$card-title-text-font-weight ?= 300;
+$card-z-index ?= 1;
 
 /* Cover image */
-$card-cover-image-height = 186px;
-$card-background-image-url = '';
+$card-cover-image-height ?= 186px;
+$card-background-image-url ?= '';
 
 
 /* BUTTON */
@@ -471,36 +471,36 @@ $card-background-image-url = '';
  * Dimensions
  *
  */
-$button-min-width = 64px;
-$button-height = 36px;
-$button-padding = 8px;
-$button-margin = 4px;
-$button-border-radius = 2px;
+$button-min-width ?= 64px;
+$button-height ?= 36px;
+$button-padding ?= 8px;
+$button-margin ?= 4px;
+$button-border-radius ?= 2px;
 
-$button-fab-size = 56px;
-$button-fab-size-mini = 40px;
-$button-fab-font-size = 24px;
+$button-fab-size ?= 56px;
+$button-fab-size-mini ?= 40px;
+$button-fab-font-size ?= 24px;
 
-$button-icon-size = 32px;
-$button-icon-size-mini = 24px;
+$button-icon-size ?= 32px;
+$button-icon-size-mini ?= 24px;
 
 
 /* ANIMATION */
-$animation-curve-fast-out-slow-in = cubic-bezier(0.4, 0, 0.2, 1);
-$animation-curve-linear-out-slow-in = cubic-bezier(0, 0, 0.2, 1);
-$animation-curve-fast-out-linear-in = cubic-bezier(0.4, 0, 1, 1);
+$animation-curve-fast-out-slow-in ?= cubic-bezier(0.4, 0, 0.2, 1);
+$animation-curve-linear-out-slow-in ?= cubic-bezier(0, 0, 0.2, 1);
+$animation-curve-fast-out-linear-in ?= cubic-bezier(0.4, 0, 1, 1);
 
-$animation-curve-default = $animation-curve-fast-out-slow-in;
+$animation-curve-default ?= $animation-curve-fast-out-slow-in;
 
 
 /* PROGRESS */
-$bar-height = 4px;
+$bar-height ?= 4px;
 
 /* BADGE */
-$badge-color = convert("rgb(" + $color-white + ")");
-$badge-color-inverse = convert("rgb(" + $color-accent + ")");
-$badge-background = convert("rgb(" + $color-accent + ")");
-$badge-background-inverse = convert("rgba(" + $color-white + ",0.2)");
+$badge-color ?= convert("rgb(" + $color-white + ")");
+$badge-color-inverse ?= convert("rgb(" + $color-accent + ")");
+$badge-background ?= convert("rgb(" + $color-accent + ")");
+$badge-background-inverse ?= convert("rgba(" + $color-white + ",0.2)");
 $badge-size = 22px;
 $badge-padding = 2px;
 
@@ -512,23 +512,23 @@ $shadow-ambient-shadow-opacity = 0.12;
 
 /* GRID */
 
-$grid-desktop-columns = 12;
-$grid-desktop-gutter = 16px;
-$grid-desktop-margin = 16px;
+$grid-desktop-columns ?= 12;
+$grid-desktop-gutter ?= 16px;
+$grid-desktop-margin ?= 16px;
 
-$grid-desktop-breakpoint = 840px;
+$grid-desktop-breakpoint ?= 840px;
 
-$grid-tablet-columns = 8;
-$grid-tablet-gutter = $grid-desktop-gutter;
-$grid-tablet-margin = $grid-desktop-margin;
+$grid-tablet-columns ?= 8;
+$grid-tablet-gutter ?= $grid-desktop-gutter;
+$grid-tablet-margin ?= $grid-desktop-margin;
 
-$grid-tablet-breakpoint = 480px;
+$grid-tablet-breakpoint ?= 480px;
 
-$grid-phone-columns = 4;
-$grid-phone-gutter = $grid-desktop-gutter;
-$grid-phone-margin = $grid-desktop-margin;
+$grid-phone-columns ?= 4;
+$grid-phone-gutter ?= $grid-desktop-gutter;
+$grid-phone-margin ?= $grid-desktop-margin;
 
-$grid-cell-default-columns = $grid-phone-columns;
+$grid-cell-default-columns ?= $grid-phone-columns;
 
 /* DATA TABLE */
 
