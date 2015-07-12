@@ -21,7 +21,7 @@ conditionals() {
 
 # Operator at end of line
 trailing_ops() {
-  sed -e '/^ *[&$a-zA-Z0-9_-].*[*+~=)0-]$/ {' -e N -e 's/\n */ /' -e '}'
+  sed -e '/^ *[&$a-zA-Z0-9_-].*[*+~=)(0-]$/ {' -e N -e 's/\n */ /' -e '}'
 }
 
 # Mixin definitions
@@ -81,10 +81,15 @@ animations() {
     -e 't loop' -e '}'
 }
 
+# Fix spinner duration units
+hack1() {
+  sed 's/^\(\$spinner-duration = \)\(.*\);$/\1unit(\2, ms);/'
+}
+
 conversions() {
   assignments | underscores | conditionals | trailing_ops | mixins | includes |
     unquotes | defaults | multiline_lists | nth_calls | negations | divisions |
-    interpolations | loops | animations
+    interpolations | loops | animations | hack1
 }
 
 convert_one() {
