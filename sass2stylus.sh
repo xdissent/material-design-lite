@@ -94,10 +94,15 @@ hack1() {
   sed 's/^\(\$spinner-duration = \)\(.*\);$/\1unit(\2, ms);/'
 }
 
+# Force default in assignments
+hack2() {
+  sed 's/^\([^(]*\) = \(.*\)/\1 ?= \2/'
+}
+
 conversions() {
   assignments | underscores | conditionals | trailing_ops | mixins | includes |
     unquotes | defaults | multiline_lists | nth_calls | negations | divisions |
-    interpolations | loops | animations | charset | hack1
+    interpolations | loops | animations | charset | hack1 | hack2
 }
 
 convert_one() {

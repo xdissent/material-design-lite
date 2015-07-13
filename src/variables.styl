@@ -276,27 +276,27 @@ $footer-underline-color ?= $footer-color;
 
 /* TEXTFIELD */
 
-$input-text-font-size = 16px;
-$input-text-width = 100%;
-$input-text-padding = 4px;
-$input-text-ripple-size = 32px;
-$input-text-vertical-spacing = 20px;
+$input-text-font-size ?= 16px;
+$input-text-width ?= 100%;
+$input-text-padding ?= 4px;
+$input-text-ripple-size ?= 32px;
+$input-text-vertical-spacing ?= 20px;
 
-$input-text-button-size = 32px;
-$input-text-floating-label-fontsize = 12px;
-$input-text-expandable-icon-top = 16px;
+$input-text-button-size ?= 32px;
+$input-text-floating-label-fontsize ?= 12px;
+$input-text-expandable-icon-top ?= 16px;
 
 
 /* SWITCH */
 
-$switch-label-height = 24px;
-$switch-track-height = 14px;
-$switch-track-length = 36px;
-$switch-thumb-size = 20px;
-$switch-track-top = ($switch-label-height - $switch-track-height) / 2;
-$switch-thumb-top = ($switch-label-height - $switch-thumb-size) / 2;
-$switch-ripple-size = $switch-label-height * 2;
-$switch-helper-size = 8px;
+$switch-label-height ?= 24px;
+$switch-track-height ?= 14px;
+$switch-track-length ?= 36px;
+$switch-thumb-size ?= 20px;
+$switch-track-top ?= ($switch-label-height - $switch-track-height) / 2;
+$switch-thumb-top ?= ($switch-label-height - $switch-thumb-size) / 2;
+$switch-ripple-size ?= $switch-label-height * 2;
+$switch-helper-size ?= 8px;
 
 /* SPINNER */
 
@@ -304,64 +304,64 @@ $spinner-size ?= 28px;
 $spinner-stroke-width ?= 3px;
 
 // Amount of circle the arc takes up.
-$spinner-arc-size = 270deg;
+$spinner-arc-size ?= 270deg;
 // Time it takes to expand and contract arc.
-$spinner-arc-time = 1333ms;
+$spinner-arc-time ?= 1333ms;
 // How much the start location of the arc should rotate each time.
-$spinner-arc-start-rot = 216deg;
+$spinner-arc-start-rot ?= 216deg;
 
-$spinner-duration = unit(360deg * $spinner-arc-time / ( $spinner-arc-start-rot + (360deg - $spinner-arc-size)), ms);
+$spinner-duration ?= unit(360deg * $spinner-arc-time / ( $spinner-arc-start-rot + (360deg - $spinner-arc-size)), ms);
 
 
 /* RADIO */
 
-$radio-label-height = 24px;
-$radio-button-size = 16px;
-$radio-inner-margin = $radio-button-size / 4;
-$radio-padding = 8px;
-$radio-top-offset = ($radio-label-height - $radio-button-size) / 2 - 2px;
-$radio-ripple-size = 42px;
+$radio-label-height ?= 24px;
+$radio-button-size ?= 16px;
+$radio-inner-margin ?= $radio-button-size / 4;
+$radio-padding ?= 8px;
+$radio-top-offset ?= ($radio-label-height - $radio-button-size) / 2 - 2px;
+$radio-ripple-size ?= 42px;
 
 
 /* MENU */
 
-$menu-expand-duration = 0.3s;
-$menu-fade-duration = 0.2s;
+$menu-expand-duration ?= 0.3s;
+$menu-fade-duration ?= 0.2s;
 
 /* LIST */
 
-$list-container-height = 500px;
-$list-container-width = 400px;
-$list-container-item-height = 70px;
+$list-container-height ?= 500px;
+$list-container-width ?= 400px;
+$list-container-item-height ?= 70px;
 
 /* ICONS */
 
 
 // Dimensions
-$layout-drawer-narrow = 240px;
-$layout-drawer-wide = 456px;
-$layout-drawer-width = $layout-drawer-narrow;
+$layout-drawer-narrow ?= 240px;
+$layout-drawer-wide ?= 456px;
+$layout-drawer-width ?= $layout-drawer-narrow;
 
-$layout-header-icon-size = 32px;
-$layout-screen-size-threshold = 850px;
-$layout-header-icon-margin = 24px;
-$layout-drawer-button-mobile-size = 32px;
-$layout-drawer-button-desktop-size = 48px;
+$layout-header-icon-size ?= 32px;
+$layout-screen-size-threshold ?= 850px;
+$layout-header-icon-margin ?= 24px;
+$layout-drawer-button-mobile-size ?= 32px;
+$layout-drawer-button-desktop-size ?= 48px;
 
-$layout-header-mobile-row-height = 56px;
-$layout-mobile-header-height = $layout-header-mobile-row-height;
-$layout-header-desktop-row-height = 64px;
-$layout-desktop-header-height = $layout-header-desktop-row-height;
+$layout-header-mobile-row-height ?= 56px;
+$layout-mobile-header-height ?= $layout-header-mobile-row-height;
+$layout-header-desktop-row-height ?= 64px;
+$layout-desktop-header-height ?= $layout-header-desktop-row-height;
 
-$layout-header-desktop-baseline = 80px;
-$layout-header-mobile-baseline = 72px;
-$layout-header-mobile-indent = 16px;
-$layout-header-desktop-indent = 40px;
+$layout-header-desktop-baseline ?= 80px;
+$layout-header-mobile-baseline ?= 72px;
+$layout-header-mobile-indent ?= 16px;
+$layout-header-desktop-indent ?= 40px;
 
-$layout-tab-bar-height = 48px;
-$layout-tab-mobile-padding = 12px;
-$layout-tab-desktop-padding = 24px;
-$layout-tab-highlight-thickness = 2px;
+$layout-tab-bar-height ?= 48px;
+$layout-tab-mobile-padding ?= 12px;
+$layout-tab-desktop-padding ?= 24px;
+$layout-tab-highlight-thickness ?= 2px;
 
 
 /* ICON TOGGLE */
@@ -399,38 +399,38 @@ $footer-btn-size ?= 36px;
 /* COLUMN LAYOUT */
 
 // Cutoff points for devices.
-$columns-tablet-size = 768px;
-$columns-desktop-size = 1024px;
+$columns-tablet-size ?= 768px;
+$columns-desktop-size ?= 1024px;
 
 // Web (desktop) layout. Columns are fixed width, and there's a maximum number
 // of 3 columns, after which we just add padding to either side.
-$columns-web-count = 3;
-$columns-web-size = 360px;
-$columns-web-gutter = 40px;
+$columns-web-count ?= 3;
+$columns-web-size ?= 360px;
+$columns-web-gutter ?= 40px;
 
-$columns-web-block-size = $columns-web-size + $columns-web-gutter;
-$columns-web-padding-size = $columns-web-count * ($columns-web-size + $columns-web-gutter) / 2;
+$columns-web-block-size ?= $columns-web-size + $columns-web-gutter;
+$columns-web-padding-size ?= $columns-web-count * ($columns-web-size + $columns-web-gutter) / 2;
 
 // Tablet layout. There's a fixed number of columns, which grow to fill the
 // entire container.
-$columns-tablet-count = 2;
-$columns-tablet-gutter = 24px;
-$columns-tablet-percent = 100% / $columns-tablet-count;
+$columns-tablet-count ?= 2;
+$columns-tablet-gutter ?= 24px;
+$columns-tablet-percent ?= 100% / $columns-tablet-count;
 
 // Phone layout. There's a fixed number of columns, which grow to fill the
 // entire container.
-$columns-phone-count = 1;
-$columns-phone-gutter = 16px;
-$columns-phone-percent = 100% / $columns-phone-count;
+$columns-phone-count ?= 1;
+$columns-phone-gutter ?= 16px;
+$columns-phone-percent ?= 100% / $columns-phone-count;
 
 /* CHECKBOX */
 
-$checkbox-label-height = 24px;
-$checkbox-button-size = 16px;
-$checkbox-inner-margin = 2px;
-$checkbox-padding = 8px;
-$checkbox-top-offset = ($checkbox-label-height - $checkbox-button-size - $checkbox-inner-margin) / 2;
-$checkbox-ripple-size = $checkbox-label-height * 1.5;
+$checkbox-label-height ?= 24px;
+$checkbox-button-size ?= 16px;
+$checkbox-inner-margin ?= 2px;
+$checkbox-padding ?= 8px;
+$checkbox-top-offset ?= ($checkbox-label-height - $checkbox-button-size - $checkbox-inner-margin) / 2;
+$checkbox-ripple-size ?= $checkbox-label-height * 1.5;
 
 /* CARD */
 
@@ -500,14 +500,14 @@ $badge-color ?= convert("rgb(" + $color-white + ")");
 $badge-color-inverse ?= convert("rgb(" + $color-accent + ")");
 $badge-background ?= convert("rgb(" + $color-accent + ")");
 $badge-background-inverse ?= convert("rgba(" + $color-white + ",0.2)");
-$badge-size = 22px;
-$badge-padding = 2px;
+$badge-size ?= 22px;
+$badge-padding ?= 2px;
 
 /* SHADOWS */
 
-$shadow-key-umbra-opacity = 0.2;
-$shadow-key-penumbra-opacity = 0.14;
-$shadow-ambient-shadow-opacity = 0.12;
+$shadow-key-umbra-opacity ?= 0.2;
+$shadow-key-penumbra-opacity ?= 0.14;
+$shadow-ambient-shadow-opacity ?= 0.12;
 
 /* GRID */
 
@@ -531,23 +531,23 @@ $grid-cell-default-columns ?= $grid-phone-columns;
 
 /* DATA TABLE */
 
-$data-table-header-color = rgba(#000, 0.54);
-$data-table-divider-color = rgba(#000, 0.12);
+$data-table-header-color ?= rgba(#000, 0.54);
+$data-table-divider-color ?= rgba(#000, 0.12);
 
-$data-table-hover-color = #eeeeee;
-$data-table-selection-color = #e0e0e0;
+$data-table-hover-color ?= #eeeeee;
+$data-table-selection-color ?= #e0e0e0;
 
-$data-table-dividers = 1px solid $data-table-divider-color;
+$data-table-dividers ?= 1px solid $data-table-divider-color;
 
-$data-table-row-height = 48px;
-$data-table-last-row-height = 56px;
-$data-table-header-height = 56px;
+$data-table-row-height ?= 48px;
+$data-table-last-row-height ?= 56px;
+$data-table-header-height ?= 56px;
 
-$data-table-column-spacing = 36px;
-$data-table-column-padding = $data-table-column-spacing / 2;
+$data-table-column-spacing ?= 36px;
+$data-table-column-padding ?= $data-table-column-spacing / 2;
 
-$data-table-card-header-height = 64px;
-$data-table-card-title-top = 20px;
-$data-table-card-padding = 24px;
-$data-table-button-padding-right = 16px;
-$data-table-cell-top = $data-table-card-padding / 2;
+$data-table-card-header-height ?= 64px;
+$data-table-card-title-top ?= 20px;
+$data-table-card-padding ?= 24px;
+$data-table-button-padding-right ?= 16px;
+$data-table-cell-top ?= $data-table-card-padding / 2;
