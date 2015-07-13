@@ -81,6 +81,14 @@ animations() {
     -e 't loop' -e '}'
 }
 
+# Add charset
+charset() {
+  sed '/\/\* Material Design Lite \(Grid\)*\*\//a\
+\
+@charset "UTF-8";\
+'
+}
+
 # Fix spinner duration units
 hack1() {
   sed 's/^\(\$spinner-duration = \)\(.*\);$/\1unit(\2, ms);/'
@@ -89,7 +97,7 @@ hack1() {
 conversions() {
   assignments | underscores | conditionals | trailing_ops | mixins | includes |
     unquotes | defaults | multiline_lists | nth_calls | negations | divisions |
-    interpolations | loops | animations | hack1
+    interpolations | loops | animations | charset | hack1
 }
 
 convert_one() {
