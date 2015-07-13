@@ -33,6 +33,9 @@ var path = require('path');
 var pkg = require('./package.json');
 var through = require('through2');
 var swig = require('swig');
+var CleanCss = require('clean-css')
+var css = require('css')
+var diff = require('diff')
 var MaterialCustomizer = require('./docs/_assets/customizer.js');
 var hostedLibsUrlPrefix = 'https://storage.googleapis.com/code.getmdl.io';
 var bucketProd = 'gs://www.getmdl.io';
@@ -108,6 +111,82 @@ gulp.task('styles:dev', function () {
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.size({title: 'styles'}));
+});
+
+// Compile and Automatically Prefix Stylesheets (sass)
+gulp.task('styles:sass', function () {
+  return gulp.src([
+    'src/material-design-lite.scss',
+    'src/material-design-lite-grid.scss',
+    'src/styleguide.scss',
+    'src/template.scss'
+  ])
+    .pipe($.sass({
+      precision: 10,
+      onError: console.error.bind(console, 'Sass error:')
+    }))
+    .pipe($.cssInlineImages({
+      webRoot: 'src'
+    }))
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(gulp.dest('.tmp/styles/sass'))
+    .pipe($.size({title: 'styles'}));
+});
+
+// Diff Stylus vs Sass Compiled Stylesheets
+gulp.task('styles:diff', ['styles:dev', 'styles:sass'], function () {
+  return gulp.src([
+    '.tmp/styles/sass/material-design-lite.css',
+    '.tmp/styles/material-design-lite.css'
+  ])
+    .pipe(through.obj(function(file, enc, cb) {
+      var suffix = /\.tmp\/styles\/sass/.test(file.path) ? '.sass' : '.styl';
+      file.path = file.path.replace(/\.css$/, suffix + '.css');
+      var clean = new CleanCss().minify(file.contents.toString()).styles;
+      var parsed = css.stringify(css.parse(clean));
+
+      /**
+       * Known (harmless) diffs
+       */
+
+      // Fix gray -> grey from clean-css
+      parsed = parsed.replace('1px grey;', '1px gray;');
+
+      // Fix rounding for non-px values (clean-css only does px)
+      var units = ['ms', '%'];
+      var roundRe = new RegExp('(\\d*\\.\\d{3,})(' + units.join('|') + ')', 'g');
+      parsed = parsed.replace(roundRe, function (m, n, u) {
+        return Math.round(parseFloat(n) * 1000) / 1000 + u;
+      });
+
+      // Move all keyframes to the end, since stylus already does (per-file)
+      var keyframes = '';
+      var keyframesRe = /(@(?:-webkit-)?keyframes(?:(?:.|\n)(?!\n}))+(?:.|\n)\n}[\n\s]*)/gm;
+      parsed = parsed.replace(keyframesRe, function (m, k) {
+        keyframes = keyframes + k;
+        return '';
+      }) + keyframes;
+
+      file.contents = new Buffer(parsed, 'utf8');
+      this.diff = this.diff || [];
+      this.diff.push(parsed);
+      cb(null, file);
+
+    }, function (cb) {
+      var different = false;
+      var diffs = diff.diffLines.apply(diff, this.diff);
+      var patch = diffs.reduce(function (prev, diff, idx) {
+        var color = diff.added ? 'green' : diff.removed ? 'red' : 'gray';
+        if (diff.added || diff.removed) different = true;
+        return prev + $.util.colors[color](diff.value) + '\n';
+      }, '');
+
+      if (!different) return cb();
+      var msg = 'Files differ';
+      $.util.log($.util.colors.red('ERROR ' + msg + ':\n'), patch);
+      cb(new $.util.PluginError('css-diff', msg));
+    }))
+    .pipe(gulp.dest('.tmp/styles/clean'));
 });
 
 // Compile and Automatically Prefix Stylesheet Templates (production)
