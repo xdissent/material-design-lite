@@ -31,7 +31,7 @@ mixins() {
 
 # Mixin includes
 includes() {
-  sed 's/@include *//'
+  sed -e '/@include/ {' -e 's/@include *//' -e 's/\([^)]\);$/\1();/' -e '}'
 }
 
 # Convert weird unquote stuff
@@ -89,6 +89,14 @@ charset() {
 '
 }
 
+functions() {
+  sed 's/@function //'
+}
+
+returns() {
+  sed 's/@return //'
+}
+
 # Fix spinner duration units
 hack1() {
   sed 's/^\(\$spinner-duration = \)\(.*\);$/\1unit(\2, ms);/'
@@ -102,7 +110,8 @@ hack2() {
 conversions() {
   assignments | underscores | conditionals | trailing_ops | mixins | includes |
     unquotes | defaults | multiline_lists | nth_calls | negations | divisions |
-    interpolations | loops | animations | charset | hack1 | hack2
+    interpolations | loops | animations | charset | functions | returns |
+    hack1 | hack2
 }
 
 convert_one() {
