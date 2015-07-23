@@ -83,7 +83,7 @@ A grid with three cells of column size 6 that will display as column size 8 on a
 </div>
 ```
 
-A grid with four cells of column size 4 that will display as column size 4 on a phone device.
+A grid with four cells of column size 2 that will display as column size 4 on a phone device.
 
 ```html
 <div class="mdl-grid">
@@ -101,6 +101,7 @@ The MDL CSS classes apply various predefined visual enhancements and behavioral 
 |-----------|--------|---------|
 | `mdl-grid` | Defines a container as an MDL grid component | Required on "outer" div element |
 | `mdl-cell` | Defines a container as an MDL cell | Required on "inner" div elements |
+| `mdl-grid--no-spacing` | Modifies the grid cells to have no margin between them. | Optional on grid container. |
 | `mdl-cell--N-col` | Sets the column size for the cell to N | N is 1-12 inclusive, defaults to 4; optional on "inner" div elements|
 | `mdl-cell--N-col-desktop` | Sets the column size for the cell to N in desktop mode only | N is 1-12 inclusive; optional on "inner" div elements|
 | `mdl-cell--N-col-tablet` | Sets the column size for the cell to N in tablet mode only | N is 1-8 inclusive; optional on "inner" div elements|

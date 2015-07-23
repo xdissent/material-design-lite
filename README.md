@@ -39,6 +39,13 @@ git clone --bare https://github.com/google/material-design-lite.git
 Alternatively you can [download](https://github.com/google/material-design-lite/archive/master.zip)
 this repository.
 
+Windows users, if you have trouble compiling due to line endings then make sure you configure git to checkout the repository with `lf` (unix) line endings. This can be achieved by setting `core.eol`.
+
+```
+git config core.eol lf
+git config core.autocrlf input
+```
+
 > Remember, the master branch is considered unstable. Do not use this in production. Use a tagged state of the repository, npm, or bower for stability!
 
 ### What's included
@@ -48,7 +55,7 @@ In the repo you'll find the following directories and files.
 | File/Folder     | Provides                                       |
 |-----------------|------------------------------------------------|
 | CONTRIBUTING.md | MDL contribution guidelines.                   |
-| docs            | Files for documentation the documentation site.|
+| docs            | Files for the documentation site.              |
 | gulpfile.js     | gulp configuration for MDL.                    |
 | LICENSE         | Project license information.                   |
 | package.json    | npm package information.                       |
@@ -65,6 +72,8 @@ dependencies, from the root of the project:
 ```bash
 npm install && npm install -g gulp
 ```
+
+> MDL requires NodeJS 0.12.
 
 Next, run the following one-liner to compile the components and the docs and
 spawn a local instance of the documentation site:

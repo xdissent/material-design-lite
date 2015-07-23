@@ -25,6 +25,7 @@ var fs = require('fs');
 var merge = require('merge-stream');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
+var vinylPaths = require('vinyl-paths');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var codeFiles = '';
@@ -36,7 +37,6 @@ var swig = require('swig');
 var CleanCss = require('clean-css')
 var css = require('css')
 var diff = require('diff')
-var MaterialCustomizer = require('./docs/_assets/customizer.js');
 var hostedLibsUrlPrefix = 'https://storage.googleapis.com/code.getmdl.io';
 var bucketProd = 'gs://www.getmdl.io';
 var bucketStaging = 'gs://mdl-staging';
@@ -216,7 +216,7 @@ gulp.task('styletemplates', function () {
 });
 
 // Compile and Automatically Prefix Stylesheets (production)
-gulp.task('styles', ['styletemplates'], function () {
+gulp.task('styles', function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
     'src/styleguide.styl'
@@ -261,7 +261,7 @@ gulp.task('styles-grid', function () {
 });
 
 // Concatenate And Minify JavaScript
-gulp.task('scripts', function () {
+gulp.task('scripts', ['jscs', 'jshint'], function () {
   var sources = [
     // Component handler
     'src/mdlComponentHandler.js',
@@ -316,9 +316,18 @@ gulp.task('metadata', function () {
 // Build Production Files, the Default Task
 gulp.task('default', ['clean', 'mocha'], function (cb) {
   runSequence(
-    ['styles', 'styles:gen'],
-    ['jshint', 'jscs', 'scripts', 'styles', 'assets', 'demos', 'pages',
+    ['styles', 'styles-grid'],
+    ['scripts'],
+    cb);
+});
+
+// Build production files and microsite
+gulp.task('all', ['clean', 'mocha'], function (cb) {
+  runSequence(
+    ['default', 'styletemplates', 'styles:gen'],
+    ['jshint', 'jscs', 'scripts',  'assets', 'demos', 'pages',
      'templates', 'images', 'styles-grid', 'metadata'],
+    ['zip'],
     cb);
 });
 
@@ -379,15 +388,9 @@ gulp.task('components', ['demos'], function() {
     .pipe($.frontMatter({property: 'page', remove: true}))
     .pipe($.marked())
     .pipe((function () {
-      var componentPages = [];
       return through.obj(function(file, enc, cb) {
         file.page.component = file.relative.split('/')[0];
-        componentPages.push(file.page);
         this.push(file);
-        cb();
-      },
-      function(cb) {
-        site.components = componentPages;
         cb();
       });
     })())
@@ -439,15 +442,9 @@ gulp.task('demos', ['demoresources'], function() {
       .pipe($.frontMatter({property: 'page', remove: true}))
       .pipe($.marked())
       .pipe((function () {
-        var componentPages = [];
         return through.obj(function(file, enc, cb) {
             file.page.component = component;
-            componentPages.push(file.page);
             this.push(file);
-            cb();
-          },
-          function(cb) {
-            site.components = componentPages;
             cb();
           });
       })())
@@ -509,10 +506,23 @@ gulp.task('assets', function () {
     .pipe(gulp.dest('dist/assets'));
 });
 
+function watch() {
+  gulp.watch(['src/**/*.js', '!src/**/README.md'],
+    ['scripts', 'demos', 'components', reload]);
+  gulp.watch(['src/**/*.{styl,css}'],
+    ['styles', 'styles-grid', 'styletemplates', reload]);
+  gulp.watch(['src/**/*.html'], ['pages', reload]);
+  gulp.watch(['src/**/*.{svg,png,jpg}'], ['images', reload]);
+  gulp.watch(['src/**/README.md'], ['pages', reload]);
+  gulp.watch(['templates/**/*'], ['templates', reload]);
+  gulp.watch(['docs/**/*'], ['pages', 'assets', reload]);
+  gulp.watch(['package.json', 'bower.json', 'LICENSE'], ['metadata']);
+}
+
 /**
  * Serves the landing page from "out" directory.
  */
-gulp.task('serve:browsersync', ['default'], function () {
+gulp.task('serve:browsersync', function () {
   browserSync({
     notify: false,
     server: {
@@ -520,29 +530,17 @@ gulp.task('serve:browsersync', ['default'], function () {
     }
   });
 
-  gulp.watch(['src/**/*.js', '!src/**/README.md'],
-      ['scripts', 'demos', 'components', reload]);
-  gulp.watch(['src/**/*.{styl,css}'], ['styles', 'demos', reload]);
-  gulp.watch(['src/**/*.html'], ['demos', reload]);
-  gulp.watch(['src/**/README.md'], ['components', reload]);
-  gulp.watch(['templates/**/*'], ['templates', reload]);
-  gulp.watch(['docs/**/*'], ['pages', 'assets', reload]);
+  watch();
 });
 
-gulp.task('serve', ['default'], function() {
+gulp.task('serve', function() {
   $.connect.server({
     root: 'dist',
     port: 5000,
     livereload: true
   });
 
-  gulp.watch(['src/**/*.js', '!src/**/README.md'],
-      ['scripts', 'demos', 'components']);
-  gulp.watch(['src/**/*.{styl,css}'], ['styles', 'demos']);
-  gulp.watch(['src/**/*.html'], ['demos']);
-  gulp.watch(['src/**/README.md'], ['components']);
-  gulp.watch(['templates/**/*'], ['templates']);
-  gulp.watch(['docs/**/*'], ['pages', 'assets']);
+  watch();
 
   gulp.src('./dist/index.html')
     .pipe($.open('', {url: 'http://localhost:5000'}));
@@ -581,6 +579,8 @@ gulp.task('zip:templates', function() {
   .pipe(fileFilter.restore())
   .pipe(gulp.dest('dist'));
 });
+
+gulp.task('zip', ['zip:templates', 'zip:mdl']);
 
 gulp.task('genCodeFiles', function() {
   return gulp.src(['dist/material.*@(js|css)?(.map)', 'dist/mdl.zip', 'dist/mdl-templates.zip'],
@@ -714,6 +714,21 @@ gulp.task('templates:mdl', function() {
     .pipe(gulp.dest('dist/templates'));
 });
 
+gulp.task('_release', function() {
+  return gulp.src(['dist/material?(.min)@(.js|.css)?(.map)', 'LICENSE',
+    'README.md', 'bower.json', 'package.json', './sr?/**/*', 'gulpfile.js'])
+    .pipe(gulp.dest('_release'));
+});
+
+gulp.task('publish:release', ['_release'], function() {
+  return gulp.src('_release')
+  .pipe($.subtree({
+    remote: 'origin',
+    branch: 'release'
+  }))
+  .pipe(vinylPaths(del));
+});
+
 gulp.task('templates:styles', function() {
   return gulp.src([
     'templates/**/*.css'
@@ -736,10 +751,10 @@ gulp.task('templates:images', function() {
   return gulp.src([
     'templates/*/images/**/*'
   ])
-  .pipe($.imagemin({
+  .pipe($.cache($.imagemin({
     progressive: true,
     interlaced: true
-  }))
+  })))
   .pipe(gulp.dest('dist/templates'));
 });
 
@@ -754,6 +769,7 @@ gulp.task('templates', ['templates:static', 'templates:images', 'templates:mdl',
     'templates:fonts', 'templates:styles']);
 
 gulp.task('styles:gen', ['styles'], function() {
+  var MaterialCustomizer = require('./docs/_assets/customizer.js');
   // TODO: This task needs refactoring once we turn MaterialCustomizer
   // into a proper Node module.
   var mc = new MaterialCustomizer();
