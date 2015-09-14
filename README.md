@@ -10,7 +10,6 @@ static content websites. It doesn't rely on any JavaScript frameworks or
 libraries. Optimized for cross-device use, gracefully degrades in older
 browsers, and offers an experience that is accessible from the get-go.
 
-
 ## Use MDL on your site?
 
 **This document is targeted at developers that will contribute to or compile
@@ -33,20 +32,25 @@ to our CSS-only experience.
 Clone the repo using Git:
 
 ```bash
-git clone --bare https://github.com/google/material-design-lite.git
+git clone https://github.com/google/material-design-lite.git
 ```
 
 Alternatively you can [download](https://github.com/google/material-design-lite/archive/master.zip)
 this repository.
 
-Windows users, if you have trouble compiling due to line endings then make sure you configure git to checkout the repository with `lf` (unix) line endings. This can be achieved by setting `core.eol`.
+Windows users, if you have trouble compiling due to line endings then make sure
+you configure git to checkout the repository with `lf` (unix) line endings. This
+can be achieved by setting `core.eol`.
 
 ```
 git config core.eol lf
 git config core.autocrlf input
+git rm --cached -r .
+git reset --hard
 ```
 
-> Remember, the master branch is considered unstable. Do not use this in production. Use a tagged state of the repository, npm, or bower for stability!
+> Remember, the master branch is considered unstable. Do not use this in
+production. Use a tagged state of the repository, npm, or bower for stability!
 
 ### What's included
 
@@ -79,7 +83,7 @@ Next, run the following one-liner to compile the components and the docs and
 spawn a local instance of the documentation site:
 
 ```bash
-gulp serve
+gulp all && gulp serve
 ```
 
 Most changes made to files inside the `src` or the `docs` directory will cause
@@ -93,7 +97,6 @@ gulp
 ```
 
 This will clean the `dist` folder and rebuild the assets for serving.
-
 
 ### Templates
 
@@ -112,7 +115,20 @@ templates:
 
 > Templates are not officially supported in IE9 and legacy browsers that do not
 pass the minimum-requirements defined in our
-[cutting-the-mustard test](https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L262-L275).
+[cutting-the-mustard test](https://github.com/google/material-design-lite/blob/87c48c22416c3e83850f7711365b2a43ba19c5ce/src/mdlComponentHandler.js#L336-L349).
+
+The templates refer to CDN hosted versions of the libraries. If you'd like to
+test the templates against locally built MDL libraries you need to run the
+`templates:localtestingoverride` gulp task before running `gulp serve`:
+
+```bash
+gulp all && gulp templates:localtestingoverride && gulp serve
+```
+
+> Beware as any changes to the `templates` directory will automatically revert
+the templates local testing overrides. In this case make sure you run the
+`templates:localtestingoverride` gulp task again or modify the `watch()`
+function in the gulp file.
 
 ## Versioning
 
@@ -130,14 +146,23 @@ Please keep in mind that one of the goals of MDL is to adhere to the Material
 Design specs and therefore some requests might not be within the scope of this
 project.
 
+## Want to contribute?
+
+If you found a bug, have any questions or want to contribute. Follow our
+[guidelines](https://github.com/google/material-design-lite/blob/master/CONTRIBUTING.md),
+and help improve the Material Design Lite. For more information visit our
+[wiki](https://github.com/google/material-design-lite/wiki).
+
 ## Do you include any features that a framework comes with?
 
 Material Design Lite is focused on delivering a vanilla CSS/JS/HTML library of
 components. We are not a framework. If you are building a single-page app and
 require features like two-way data-binding, templating, CSS scoping and so
-forth, we recommend trying out the excellent [Polymer](http://polymer-project.org) project.
-
+forth, we recommend trying out the excellent
+[Polymer](http://polymer-project.org) project.
 
 ## License
 
-© Google, 2015. Licensed under an [Apache-2](https://github.com/google/material-design-lite/blob/master/LICENSE) license.
+© Google, 2015. Licensed under an
+[Apache-2](https://github.com/google/material-design-lite/blob/master/LICENSE)
+license.

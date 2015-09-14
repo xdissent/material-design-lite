@@ -81,6 +81,7 @@
     background: $switch-track-color;
   }
 
+  fieldset[disabled] .mdl-switch,
   .mdl-switch.is-disabled & {
     background: $switch-disabled-track-color;
     cursor: auto;
@@ -110,6 +111,7 @@
     @include shadow-3dp();
   }
 
+  fieldset[disabled] .mdl-switch,
   .mdl-switch.is-disabled & {
     background: $switch-disabled-thumb-color;
     cursor: auto;
@@ -148,11 +150,12 @@
 .mdl-switch__label {
   position: relative;
   cursor: pointer;
-  font-size: 16px;
+  font-size: $switch-label-font-size;
   line-height: $switch-label-height;
   margin: 0;
   left: 24px;
 
+  fieldset[disabled] .mdl-switch,
   .mdl-switch.is-disabled & {
     color: $switch-disabled-thumb-color;
     cursor: auto;
@@ -183,10 +186,12 @@
     background: $switch-color;
   }
 
+  fieldset[disabled] .mdl-switch,
   .mdl-switch.is-disabled & {
     cursor: auto;
   }
 
+  fieldset[disabled] .mdl-switch & .mdl-ripple,
   .mdl-switch.is-disabled & .mdl-ripple {
     background: transparent;
   }
