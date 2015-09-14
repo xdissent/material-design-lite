@@ -16,6 +16,14 @@
 (function() {
   'use strict';
 
+  /**
+   * Class constructor for Snackbar MDL component.
+   * Implements MDL component design pattern defined at:
+   * https://github.com/jasonmayes/mdl-component-design-pattern
+   *
+   * @constructor
+   * @param {HTMLElement} element The element that will be upgraded.
+   */
   var MaterialSnackbar = function MaterialSnackbar(element) {
     this.element_ = element;
     this.active = false;
@@ -30,6 +38,11 @@
     activeSnackbar: 'is-active'
   };
 
+  /**
+   * Create snackbar
+   *
+   * @private
+   */
   MaterialSnackbar.prototype.createSnackbar_ = function() {
     this.snackbarElement_ = document.createElement('div');
     this.textElement_ = document.createElement('div');
@@ -55,6 +68,11 @@
 
   };
 
+  /**
+   * Remove snackbar
+   *
+   * @private
+   */
   MaterialSnackbar.prototype.removeSnackbar_ = function() {
     if (this.actionElement_ && this.actionElement_.parentNode) {
       this.actionElement_.parentNode.removeChild(this.actionElement_);
@@ -63,6 +81,11 @@
     this.snackbarElement_.parentNode.removeChild(this.snackbarElement_);
   };
 
+  /**
+   * Show snackbar
+   *
+   * @param {Object} data The data object
+   */
   MaterialSnackbar.prototype.showSnackbar = function(data) {
     if (data === undefined) {
       throw new Error(
@@ -94,12 +117,22 @@
     }
   };
 
+  /**
+   * Check queue
+   *
+   * @private
+   */
   MaterialSnackbar.prototype.checkQueue_ = function() {
     if (this.queuedNotifications_.length > 0) {
       this.showSnackbar(this.queuedNotifications_.shift());
     }
   };
 
+  /**
+   * Cleanup
+   *
+   * @private
+   */
   MaterialSnackbar.prototype.cleanup_ = function() {
     this.snackbarElement_.classList.remove(this.cssClasses_.activeSnackbar);
     this.snackbarElement_.setAttribute('aria-hidden', true);
@@ -112,12 +145,20 @@
     this.checkQueue_();
   };
 
+  /**
+   * Set defaults
+   *
+   * @private
+   */
   MaterialSnackbar.prototype.setDefaults_ = function() {
     this.actionHandler_ = undefined;
     this.message_ = undefined;
     this.actionText_ = undefined;
   };
 
+  /**
+   * Initialize
+   */
   MaterialSnackbar.prototype.init = function() {
     this.setDefaults_();
     this.queuedNotifications_ = [];
