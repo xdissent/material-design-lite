@@ -29,8 +29,13 @@
   color: $layout-text-color;
   text-decoration: none;
   font-weight: 500;
-  font-size: 13px;
+  font-size: $layout-nav-link-font-size;
   margin: 0;
+
+  // Align icons inside link with text
+  & .material-icons {
+    vertical-align: middle;
+  }
 }
 
 // Main layout class.
@@ -208,6 +213,14 @@
       .mdl-layout--fixed-drawer > & {
         display: none;
       }
+
+      .mdl-layout--no-desktop-drawer-button & {
+        display: none;
+      }
+    }
+
+    .mdl-layout--no-drawer-button & {
+      display: none;
     }
   }
 
@@ -241,6 +254,14 @@
     .mdl-layout--fixed-drawer:not(.is-small-screen) > & {
       margin-left: $layout-drawer-width;
       width: convert("calc(100% - " + $layout-drawer-width + ")");
+    }
+
+    @media screen and (min-width: $layout-screen-size-threshold) {
+      .mdl-layout--fixed-drawer > & {
+        .mdl-layout__header-row {
+          padding-left: 40px;
+        }
+      }
     }
 
     & > .mdl-layout-icon {
@@ -324,9 +345,23 @@
       margin: 0;
       padding: 0 $layout-header-desktop-indent 0 $layout-header-desktop-baseline;
 
+      .mdl-layout--no-drawer-button & {
+        padding-left: $layout-header-desktop-indent;
+      }
+
+      @media screen and (min-width: $layout-screen-size-threshold + 1px) {
+        .mdl-layout--no-desktop-drawer-button & {
+          padding-left: $layout-header-desktop-indent;
+        }
+      }
+
       @media screen and (max-width: $layout-screen-size-threshold) {
         height: $layout-header-mobile-row-height;
         padding: 0 $layout-header-mobile-indent 0 $layout-header-mobile-baseline;
+
+        .mdl-layout--no-drawer-button & {
+          padding-left: $layout-header-mobile-indent;
+        }
       }
 
       & > * {
@@ -359,7 +394,8 @@
           line-height: $layout-header-mobile-row-height;
           padding: 0 $layout-header-mobile-indent;
         }
-      }    }
+      }
+    }
 
   // Obfuscator.
   .mdl-layout__obfuscator {
@@ -428,9 +464,26 @@
       display: none;
     }
 
+    .mdl-layout--no-drawer-button & {
+      padding-left: $layout-header-desktop-indent - $layout-tab-desktop-padding;
+      width: convert("calc(100% - " + (($layout-header-desktop-indent - $layout-tab-desktop-padding) * 2) + ")");
+    }
+
+    @media screen and (min-width: $layout-screen-size-threshold + 1px) {
+      .mdl-layout--no-desktop-drawer-button & {
+        padding-left: $layout-header-desktop-indent - $layout-tab-desktop-padding;
+        width: convert("calc(100% - " + (($layout-header-desktop-indent - $layout-tab-desktop-padding) * 2) + ")");
+      }
+    }
+
     @media screen and (max-width: $layout-screen-size-threshold) {
       width: convert("calc(100% - " + ($layout-header-mobile-baseline - $layout-tab-mobile-padding) + ")");
       padding: 0 0 0 ($layout-header-mobile-baseline - $layout-tab-mobile-padding);
+
+      .mdl-layout--no-drawer-button & {
+        width: convert("calc(100% - " + (($layout-header-mobile-indent - $layout-tab-mobile-padding) * 2) + ")");
+        padding-left: $layout-header-mobile-indent - $layout-tab-mobile-padding;
+      }
     }
 
     .mdl-layout--fixed-tabs & {
@@ -470,6 +523,16 @@
     color: transparent;
     cursor: pointer;
     user-select: none;
+
+    .mdl-layout--no-desktop-drawer-button &,
+    .mdl-layout--no-drawer-button & {
+      width: $layout-header-desktop-indent - $layout-tab-desktop-padding;
+
+      & .material-icons {
+        position: relative;
+        left: (($layout-header-desktop-indent - $layout-tab-desktop-padding - 24px) / 2);
+      }
+    }
 
     @media screen and (max-width: $layout-screen-size-threshold) {
       display: none;
@@ -514,7 +577,7 @@
 
     text-align: center;
     font-weight: 500;
-    font-size: 14px;
+    font-size: $layout-tab-font-size;
     text-transform: uppercase;
 
     color: $layout-header-tab-text-color;
