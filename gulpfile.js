@@ -35,9 +35,9 @@ var path = require('path');
 var pkg = require('./package.json');
 var through = require('through2');
 var swig = require('swig');
-var CleanCss = require('clean-css')
-var css = require('css')
-var diff = require('diff')
+var CleanCss = require('clean-css');
+var css = require('css');
+var diff = require('diff');
 var closureCompiler = require('gulp-closure-compiler');
 var hostedLibsUrlPrefix = 'https://storage.googleapis.com/code.getmdl.io';
 var templateArchivePrefix = 'mdl-template-';
@@ -143,7 +143,7 @@ gulp.task('styles:dev', function() {
 });
 
 // Compile and Automatically Prefix Stylesheets (sass)
-gulp.task('styles:sass', function () {
+gulp.task('styles:sass', function() {
   return gulp.src([
     'src/material-design-lite.scss',
     'src/material-design-lite-grid.scss',
@@ -163,7 +163,7 @@ gulp.task('styles:sass', function () {
 });
 
 // Diff Stylus vs Sass Compiled Stylesheets
-gulp.task('styles:diff', ['styles:dev', 'styles:sass'], function () {
+gulp.task('styles:diff', ['styles:dev', 'styles:sass'], function() {
   return gulp.src([
     '.tmp/styles/sass/material-design-lite.css',
     '.tmp/styles/material-design-lite.css'
@@ -184,14 +184,14 @@ gulp.task('styles:diff', ['styles:dev', 'styles:sass'], function () {
       // Fix rounding for non-px values (clean-css only does px)
       var units = ['ms', '%'];
       var roundRe = new RegExp('(\\d*\\.\\d{3,})(' + units.join('|') + ')', 'g');
-      parsed = parsed.replace(roundRe, function (m, n, u) {
+      parsed = parsed.replace(roundRe, function(m, n, u) {
         return Math.round(parseFloat(n) * 1000) / 1000 + u;
       });
 
       // Move all keyframes to the end, since stylus already does (per-file)
       var keyframes = '';
       var keyframesRe = /(@(?:-webkit-)?keyframes(?:(?:.|\n)(?!\n}))+(?:.|\n)\n}[\n\s]*)/gm;
-      parsed = parsed.replace(keyframesRe, function (m, k) {
+      parsed = parsed.replace(keyframesRe, function(m, k) {
         keyframes = keyframes + k;
         return '';
       }) + keyframes;
@@ -201,16 +201,20 @@ gulp.task('styles:diff', ['styles:dev', 'styles:sass'], function () {
       this.diff.push(parsed);
       cb(null, file);
 
-    }, function (cb) {
+    }, function(cb) {
       var different = false;
       var diffs = diff.diffLines.apply(diff, this.diff);
-      var patch = diffs.reduce(function (prev, diff, idx) {
+      var patch = diffs.reduce(function(prev, diff, idx) {
         var color = diff.added ? 'green' : diff.removed ? 'red' : 'gray';
-        if (diff.added || diff.removed) different = true;
+        if (diff.added || diff.removed) {
+          different = true;
+        }
         return prev + $.util.colors[color](diff.value) + '\n';
       }, '');
 
-      if (!different) return cb();
+      if (!different) {
+        return cb();
+      }
       var msg = 'Files differ';
       $.util.log($.util.colors.red('ERROR ' + msg + ':\n'), patch);
       cb(new $.util.PluginError('css-diff', msg));
@@ -225,7 +229,7 @@ gulp.task('styletemplates', function() {
     'src/template.styl'
   ])
     // Generate Source Maps
-    .pipe ($.sourcemaps.init())
+    .pipe($.sourcemaps.init())
     .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
@@ -251,7 +255,7 @@ gulp.task('styles', function() {
     'src/material-design-lite.scss'
   ])
     // Generate Source Maps
-    .pipe ($.sourcemaps.init())
+    .pipe($.sourcemaps.init())
     .pipe($.stylus())
     .pipe($.cssInlineImages({
       webRoot: 'src'
